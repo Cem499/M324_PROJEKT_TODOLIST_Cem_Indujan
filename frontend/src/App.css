@@ -40,3 +40,29 @@
 .read-the-docs {
   color: #888;
 }
+
+.search-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5rem auto 0.5rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #1a1a2e;
+  color: #fff;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.search-input::placeholder {
+  color: #666;
+}
+
+.search-input:focus {
+  border-color: #646cff;
+}

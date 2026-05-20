@@ -8,6 +8,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [taskdescription, setTaskdescription] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [duedate, setDuedate] = useState("");
 
   /** Is called when the html form is submitted. It sends a POST request to the API endpoint '/tasks' and updates the component's state with the new todo.
   ** In this case a new taskdecription is added to the actual list on the server.
@@ -20,13 +21,14 @@ function App() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ taskdescription: taskdescription }) // both 'taskdescription' are identical to Task-Class attribute in Spring
+      body: JSON.stringify({ taskdescription: taskdescription, duedate: duedate })
     })
     .then(response => {
       console.log("Receiving answer after sending to Spring-Server: ");
       console.log(response);
       window.location.href = "/";
-      setTaskdescription("");             // clear input field, preparing it for the next input
+      setTaskdescription("");
+      setDuedate("");
     })
     .catch(error => console.log(error))
   }
@@ -84,6 +86,7 @@ function App() {
         {todos.map((todo, index) => (
           <li key={todo.taskdescription}>
             <span>{"Task " + (index+1) + ": "+ todo.taskdescription}</span>
+            {todo.duedate && <span className="duedate-label">Fällig: {todo.duedate}</span>}
             <button onClick={(event) => handleDelete(event, todo.taskdescription) }>&#10004;</button>
           </li>
         ))}
@@ -104,6 +107,12 @@ function App() {
             type="text"
             value={taskdescription}
             onChange={handleChange}
+          />
+          <input
+            type="date"
+            value={duedate}
+            onChange={(e) => setDuedate(e.target.value)}
+            className="duedate-input"
           />
           <button type="submit">Absenden</button>
         </form>

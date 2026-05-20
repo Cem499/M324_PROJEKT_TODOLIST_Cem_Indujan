@@ -43,14 +43,15 @@ function App() {
   }
 
 
-  /** Is called when the component is mounted (after any refresh or F5).
-  ** It updates the component's state with the fetched todos from the API Endpoint '/'.
-  */
+  /** Loads tasks from the API. Uses search endpoint when query is set, otherwise loads all. */
   useEffect(() => {
-    fetch("http://localhost:8080/").then(response => response.json()).then(data => {
+    const url = searchQuery
+      ? `http://localhost:8080/tasks/search?q=${encodeURIComponent(searchQuery)}`
+      : "http://localhost:8080/";
+    fetch(url).then(response => response.json()).then(data => {
       setTodos(data);
     });
-  }, []);
+  }, [searchQuery]);
 
 
  /** Is called when the Done-Button is pressed. It sends a POST request to the API endpoint '/delete' and updates the component's state with the new todo.
@@ -117,11 +118,7 @@ function App() {
           />
         </div>
         <div>
-          {renderTasks(
-            todos.filter(todo =>
-              todo.taskdescription.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-          )}
+          {renderTasks(todos)}
         </div>
       </header>
     </div>

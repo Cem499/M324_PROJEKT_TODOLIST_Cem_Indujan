@@ -7,6 +7,7 @@ function App() {
   const [count, setCount] = useState(0)
   const [todos, setTodos] = useState([]);
   const [taskdescription, setTaskdescription] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   /** Is called when the html form is submitted. It sends a POST request to the API endpoint '/tasks' and updates the component's state with the new todo.
   ** In this case a new taskdecription is added to the actual list on the server.
@@ -106,8 +107,21 @@ function App() {
           />
           <button type="submit">Absenden</button>
         </form>
+        <div className="search-container">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Tasks durchsuchen..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
         <div>
-          {renderTasks(todos)}
+          {renderTasks(
+            todos.filter(todo =>
+              todo.taskdescription.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+          )}
         </div>
       </header>
     </div>

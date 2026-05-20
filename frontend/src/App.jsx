@@ -37,10 +37,13 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8080/").then(response => response.json()).then(data => {
+    const url = searchQuery
+      ? `http://localhost:8080/tasks/search?q=${encodeURIComponent(searchQuery)}`
+      : "http://localhost:8080/";
+    fetch(url).then(response => response.json()).then(data => {
       setTodos(data);
     });
-  }, []);
+  }, [searchQuery]);
 
   const handleDelete = (event, taskdescription) => {
     console.log("Sending task description to delete on Spring-Server: "+taskdescription);
@@ -111,11 +114,7 @@ function App() {
           />
         </div>
         <div>
-          {renderTasks(
-            todos.filter(todo =>
-              todo.taskdescription.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-          )}
+          {renderTasks(todos)}
         </div>
       </header>
     </div>

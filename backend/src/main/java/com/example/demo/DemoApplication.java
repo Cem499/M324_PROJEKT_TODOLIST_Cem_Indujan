@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -74,6 +75,20 @@ public class DemoApplication {
 			e.printStackTrace();
 		}
 		return "redirect:/";
+	}
+
+	@CrossOrigin
+	@GetMapping("/tasks/search")
+	public List<Task> searchTasks(@RequestParam String q) {
+		String query = q.toLowerCase();
+		List<Task> result = new ArrayList<>();
+		for (Task task : tasks) {
+			if (task.getTaskdescription().toLowerCase().contains(query)) {
+				result.add(task);
+			}
+		}
+		System.out.println("API EP '/tasks/search?q=" + q + "' returns " + result.size() + " results.");
+		return result;
 	}
 
 	@CrossOrigin

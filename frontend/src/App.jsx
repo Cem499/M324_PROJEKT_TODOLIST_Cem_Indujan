@@ -8,6 +8,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [taskdescription, setTaskdescription] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [priority, setPriority] = useState("MITTEL");
 
   /** Is called when the html form is submitted. It sends a POST request to the API endpoint '/tasks' and updates the component's state with the new todo.
   ** In this case a new taskdecription is added to the actual list on the server.
@@ -20,13 +21,14 @@ function App() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ taskdescription: taskdescription }) // both 'taskdescription' are identical to Task-Class attribute in Spring
+      body: JSON.stringify({ taskdescription: taskdescription, priority: priority })
     })
     .then(response => {
       console.log("Receiving answer after sending to Spring-Server: ");
       console.log(response);
       window.location.href = "/";
-      setTaskdescription("");             // clear input field, preparing it for the next input
+      setTaskdescription("");
+      setPriority("MITTEL");
     })
     .catch(error => console.log(error))
   }
@@ -83,6 +85,9 @@ function App() {
       <ul className="todo-list">
         {todos.map((todo, index) => (
           <li key={todo.taskdescription}>
+            <span className={`priority-label priority-${(todo.priority || 'MITTEL').toLowerCase()}`}>
+              {todo.priority || 'MITTEL'}
+            </span>
             <span>{"Task " + (index+1) + ": "+ todo.taskdescription}</span>
             <button onClick={(event) => handleDelete(event, todo.taskdescription) }>&#10004;</button>
           </li>
@@ -105,6 +110,11 @@ function App() {
             value={taskdescription}
             onChange={handleChange}
           />
+          <select value={priority} onChange={(e) => setPriority(e.target.value)} className="priority-select">
+            <option value="HOCH">Hoch</option>
+            <option value="MITTEL">Mittel</option>
+            <option value="TIEF">Tief</option>
+          </select>
           <button type="submit">Absenden</button>
         </form>
         <div className="search-container">

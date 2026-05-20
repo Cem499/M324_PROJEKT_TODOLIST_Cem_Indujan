@@ -1,6 +1,6 @@
 # Arbeitsjournal - Cem
 
-## Eintrag 1 - 20.05.2025
+## Eintrag 1 - 20.05.2026
 
 - Repository geforkt und geklont
 - 6 Issues erstellt (#1 bis #6)

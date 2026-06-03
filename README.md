@@ -39,3 +39,24 @@ Kommentaren vor allem in App.js zu finden.
 - Test Umbegung mit Unit-Tests erweitern
 
 (Ausgaben für white-box debugging sind bereits auf den beiden Server vorhanden)
+
+
+
+## CI/CD Pipeline (GitHub Actions)
+
+Die Pipeline liegt unter `.github/workflows/build.yml` und wird automatisch bei jedem **Pull Request auf `main`** ausgeführt.
+
+### Trigger
+Die Pipeline startet sobald ein PR auf `main` eröffnet wird.
+
+### Jobs
+
+**build-frontend** – React + Vite
+- Node.js 20 aufsetzen
+- `npm install`
+- `npm run build` → erstellt statische HTML/JS/CSS-Dateien
+
+**build-backend** – Spring Boot
+- Java 17 aufsetzen
+- `mvn clean package -DskipTests` → erstellt JAR-Datei
+- Tests werden übersprungen, da MySQL-Verbindung im CI nicht verfügbar ist

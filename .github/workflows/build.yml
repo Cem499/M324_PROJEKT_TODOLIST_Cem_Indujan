@@ -27,6 +27,12 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+
   build-backend:
     name: Build Backend (Spring Boot)
     runs-on: ubuntu-latest
@@ -44,3 +50,9 @@ jobs:
       - name: Build JAR with Maven
         working-directory: ./backend
         run: mvn clean package -DskipTests
+
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-jar
+          path: backend/target/*.jar

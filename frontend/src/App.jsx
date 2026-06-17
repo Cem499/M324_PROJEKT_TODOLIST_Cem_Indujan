@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import logo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+const API_BASE = "http://localhost:8080/api/v1";
+
 function App() {
-  const [count, setCount] = useState(0)
   const [todos, setTodos] = useState([]);
   const [taskdescription, setTaskdescription] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,8 +13,8 @@ function App() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log("Sending task description to Spring-Server: "+taskdescription);
-    fetch("http://localhost:8080/tasks", {
+    console.log("Aufgabe wird an Spring-Server gesendet: " + taskdescription);
+    fetch(`${API_BASE}/tasks`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -22,32 +22,32 @@ function App() {
       body: JSON.stringify({ taskdescription: taskdescription, priority: priority, duedate: duedate })
     })
     .then(response => {
-      console.log("Receiving answer after sending to Spring-Server: ");
+      console.log("Antwort vom Spring-Server erhalten: ");
       console.log(response);
-      window.location.href = "/";
       setTaskdescription("");
       setDuedate("");
       setPriority("MITTEL");
+      fetchTasks();
     })
     .catch(error => console.log(error))
   }
 
-  const handleChange = event => {
-    setTaskdescription(event.target.value);
+  const fetchTasks = () => {
+    const url = searchQuery
+      ? `${API_BASE}/tasks/search?q=${encodeURIComponent(searchQuery)}`
+      : `${API_BASE}/tasks`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => setTodos(data));
   }
 
   useEffect(() => {
-    const url = searchQuery
-      ? `http://localhost:8080/tasks/search?q=${encodeURIComponent(searchQuery)}`
-      : "http://localhost:8080/";
-    fetch(url).then(response => response.json()).then(data => {
-      setTodos(data);
-    });
+    fetchTasks();
   }, [searchQuery]);
 
   const handleDelete = (event, taskdescription) => {
-    console.log("Sending task description to delete on Spring-Server: "+taskdescription);
-    fetch(`http://localhost:8080/delete`, {
+    console.log("Aufgabe wird auf Spring-Server gelöscht: " + taskdescription);
+    fetch(`${API_BASE}/tasks/delete`, {
       method: "POST",
       body: JSON.stringify({ taskdescription: taskdescription }),
       headers: {
@@ -55,9 +55,9 @@ function App() {
       }
     })
     .then(response => {
-      console.log("Receiving answer after deleting on Spring-Server: ");
+      console.log("Antwort nach dem Löschen erhalten: ");
       console.log(response);
-      window.location.href = "/";
+      fetchTasks();
     })
     .catch(error => console.log(error))
   }
@@ -89,7 +89,7 @@ function App() {
           <input
             type="text"
             value={taskdescription}
-            onChange={handleChange}
+            onChange={(e) => setTaskdescription(e.target.value)}
           />
           <select value={priority} onChange={(e) => setPriority(e.target.value)} className="priority-select">
             <option value="HOCH">Hoch</option>

@@ -1,0 +1,14 @@
+services:
+  backend:
+    image: ghcr.io/cem499/todolist-backend:latest
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  frontend:
+    image: ghcr.io/cem499/todolist-frontend:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

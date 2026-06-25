@@ -11,108 +11,85 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * This is a demo application that provides a RESTful API for a simple ToDo list
- * without persistence.
- * The endpoint "/" returns a list of tasks.
- * The endpoint "/tasks" adds a new unique task.
- * The endpoint "/delete" suppresses a task from the list.
- * The task description transferred from the (React) client is provided as a
- * request body in a JSON structure.
- * The data is converted to a task object using Jackson and added to the list of
- * tasks.
- * All endpoints are annotated with @CrossOrigin to enable cross-origin
- * requests.
- *
- * @author luh
- */
 @RestController
 @SpringBootApplication
+@RequestMapping("/api/v1")
 public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
-	private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
 
-	@CrossOrigin
-	@GetMapping("/")
-	public List<Task> getTasks() {
+    @CrossOrigin
+    @GetMapping("/tasks")
+    public List<Task> getTasks() {
+        System.out.println("API v1 - GET /api/v1/tasks – Aufgabenliste hat " + tasks.size() + " Einträge.");
+        return tasks;
+    }
 
-		System.out.println("API EP '/' returns task-list of size " + tasks.size() + ".");
-		if (tasks.size() > 0) {
-			int i = 1;
-			for (Task task : tasks) {
-				System.out.println("-task " + (i++) + ":" + task.getTaskdescription());
-			}
-		}
-		return tasks; // actual task list (internally converted to a JSON stream)
-	}
+    @CrossOrigin
+    @PostMapping("/tasks")
+    public String addTask(@RequestBody String taskdescription) {
+        System.out.println("API v1 - POST /api/v1/tasks – Empfangen: '" + taskdescription + "'");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Task task = mapper.readValue(taskdescription, Task.class);
+            for (Task t : tasks) {
+                if (t.getTaskdescription().equals(task.getTaskdescription())) {
+                    System.out.println(">>> Aufgabe '" + task.getTaskdescription() + "' existiert bereits!");
+                    return "redirect:/api/v1/tasks";
+                }
+            }
+            System.out.println("... Aufgabe wird hinzugefügt: '" + task.getTaskdescription() + "'");
+            tasks.add(task);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/api/v1/tasks";
+    }
 
-	@CrossOrigin
-	@PostMapping("/tasks")
-	public String addTask(@RequestBody String taskdescription) {
-		System.out.println("API EP '/tasks': '" + taskdescription + "'");
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			Task task;
-			task = mapper.readValue(taskdescription, Task.class);
-			for (Task t : tasks) {
-				if (t.getTaskdescription().equals(task.getTaskdescription())) {
-					System.out.println(">>>task: '" + task.getTaskdescription() + "' already exists!");
-					return "redirect:/"; // duplicates will be ignored
-				}
-			}
-			System.out.println("...adding task: '" + task.getTaskdescription() + "'");
-			tasks.add(task);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return "redirect:/";
-	}
+    @CrossOrigin
+    @GetMapping("/tasks/search")
+    public List<Task> searchTasks(@RequestParam String q) {
+        String query = q.toLowerCase();
+        List<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getTaskdescription().toLowerCase().contains(query)) {
+                result.add(task);
+            }
+        }
+        System.out.println("API v1 - GET /api/v1/tasks/search?q=" + q + " – " + result.size() + " Treffer gefunden.");
+        return result;
+    }
 
-	@CrossOrigin
-	@GetMapping("/tasks/search")
-	public List<Task> searchTasks(@RequestParam String q) {
-		String query = q.toLowerCase();
-		List<Task> result = new ArrayList<>();
-		for (Task task : tasks) {
-			if (task.getTaskdescription().toLowerCase().contains(query)) {
-				result.add(task);
-			}
-		}
-		System.out.println("API EP '/tasks/search?q=" + q + "' returns " + result.size() + " results.");
-		return result;
-	}
-
-	@CrossOrigin
-	@PostMapping("/delete")
-	public String delTask(@RequestBody String taskdescription) {
-		System.out.println("API EP '/delete': '" + taskdescription + "'");
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			Task task;
-			task = mapper.readValue(taskdescription, Task.class);
-			Iterator<Task> it = tasks.iterator();
-			while (it.hasNext()) {
-				Task t = it.next();
-				if (t.getTaskdescription().equals(task.getTaskdescription())) {
-					System.out.println("...deleting task: '" + task.getTaskdescription() + "'");
-					it.remove();
-					return "redirect:/";
-				}
-			}
-			System.out.println(">>>task: '" + task.getTaskdescription() + "' not found!");
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return "redirect:/";
-	}
-
+    @CrossOrigin
+    @PostMapping("/tasks/delete")
+    public String delTask(@RequestBody String taskdescription) {
+        System.out.println("API v1 - POST /api/v1/tasks/delete – Empfangen: '" + taskdescription + "'");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Task task = mapper.readValue(taskdescription, Task.class);
+            Iterator<Task> it = tasks.iterator();
+            while (it.hasNext()) {
+                Task t = it.next();
+                if (t.getTaskdescription().equals(task.getTaskdescription())) {
+                    System.out.println("... Aufgabe wird gelöscht: '" + task.getTaskdescription() + "'");
+                    it.remove();
+                    return "redirect:/api/v1/tasks";
+                }
+            }
+            System.out.println(">>> Aufgabe '" + task.getTaskdescription() + "' nicht gefunden!");
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/api/v1/tasks";
+    }
 }

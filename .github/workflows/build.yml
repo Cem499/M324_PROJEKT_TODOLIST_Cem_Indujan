@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
   build-frontend:
@@ -27,11 +30,19 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
-      - name: Upload frontend artifact
-        uses: actions/upload-artifact@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          name: frontend-dist
-          path: frontend/dist/
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: ghcr.io/cem499/todolist-frontend:latest
 
   build-backend:
     name: Build Backend (Spring Boot)
@@ -51,8 +62,16 @@ jobs:
         working-directory: ./backend
         run: mvn clean package -DskipTests
 
-      - name: Upload backend artifact
-        uses: actions/upload-artifact@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          name: backend-jar
-          path: backend/target/*.jar
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ghcr.io/cem499/todolist-backend:latest

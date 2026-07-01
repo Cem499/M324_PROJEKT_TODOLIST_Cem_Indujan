@@ -1,0 +1,267 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 260046848 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3618), pid=12076, tid=16644
+#
+# JRE version:  (17.0.19+10) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.19+10, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: C:\Users\Henta\AppData\Local\Temp\surefire6737912890104002927\surefirebooter-20260701063716383_3.jar C:\Users\Henta\AppData\Local\Temp\surefire6737912890104002927 2026-07-01T06-37-15_807-jvmRun1 surefire-20260701063716383_1tmp surefire_0-20260701063716383_2tmp
+
+Host: AMD Ryzen 7 7730U with Radeon Graphics         , 16 cores, 15G,  Windows 11 , 64 bit Build 26100 (10.0.26100.8521)
+Time: Wed Jul  1 06:37:17 2026 Pacific Sommerzeit elapsed time: 1.072904 seconds (0d 0h 0m 1s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000022d0d4bc860):  JavaThread "Unknown thread" [_thread_in_vm, id=16644, stack(0x000000fcee300000,0x000000fcee400000)]
+
+Stack: [0x000000fcee300000,0x000000fcee400000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x684b29]
+V  [jvm.dll+0x83a2d5]
+V  [jvm.dll+0x83bd4e]
+V  [jvm.dll+0x83c3d3]
+V  [jvm.dll+0x24905f]
+V  [jvm.dll+0x6818e9]
+V  [jvm.dll+0x6766ea]
+V  [jvm.dll+0x3093b7]
+V  [jvm.dll+0x3109a6]
+V  [jvm.dll+0x360f1e]
+V  [jvm.dll+0x36115d]
+V  [jvm.dll+0x2e043c]
+V  [jvm.dll+0x2e1348]
+V  [jvm.dll+0x80d19b]
+V  [jvm.dll+0x36eba1]
+V  [jvm.dll+0x7ebd75]
+V  [jvm.dll+0x3f47ab]
+V  [jvm.dll+0x3f6291]
+C  [jli.dll+0x52dc]
+C  [ucrtbase.dll+0x2cd30]
+C  [KERNEL32.DLL+0x2e957]
+C  [ntdll.dll+0x87c1c]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ffdecb18f58, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x0000022d0d528780 GCTaskThread "GC Thread#0" [stack: 0x000000fcee400000,0x000000fcee500000] [id=16420]
+  0x0000022d0d538b60 ConcurrentGCThread "G1 Main Marker" [stack: 0x000000fcee500000,0x000000fcee600000] [id=9204]
+  0x0000022d0d53b070 ConcurrentGCThread "G1 Conc#0" [stack: 0x000000fcee600000,0x000000fcee700000] [id=2332]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffdec2d0f67]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0000022d0d4b7b20] Heap_lock - owner thread: 0x0000022d0d4bc860
+
+Heap address: 0x0000000709800000, size: 3944 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000709800000, 0x0000000800000000)
+  region size 2048K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffdec6be139]
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.014 Loaded shared library C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff7cf1c0000 - 0x00007ff7cf1ce000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\java.exe
+0x00007ffedf520000 - 0x00007ffedf786000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffede2f0000 - 0x00007ffede3b9000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffedc970000 - 0x00007ffedcd6a000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffedcda0000 - 0x00007ffedceec000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffec6f60000 - 0x00007ffec6f7e000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\VCRUNTIME140.dll
+0x00007ffebb740000 - 0x00007ffebb758000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\jli.dll
+0x00007ffede650000 - 0x00007ffede817000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffedcd70000 - 0x00007ffedcd97000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffec8790000 - 0x00007ffec8a22000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.8521_none_3e08b75ce33403b3\COMCTL32.dll
+0x00007ffedeee0000 - 0x00007ffedef0b000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffede530000 - 0x00007ffede5d9000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffedc840000 - 0x00007ffedc96b000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffedcef0000 - 0x00007ffedcf93000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffedd340000 - 0x00007ffedd372000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffec14b0000 - 0x00007ffec14bc000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\vcruntime140_1.dll
+0x00007ffeab070000 - 0x00007ffeab0fd000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\msvcp140.dll
+0x00007ffdebfe0000 - 0x00007ffdecc4c000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\server\jvm.dll
+0x00007ffede830000 - 0x00007ffede8e6000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffedd290000 - 0x00007ffedd33a000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffedd440000 - 0x00007ffedd558000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffede8f0000 - 0x00007ffede970000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffedc460000 - 0x00007ffedc4be000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffed5190000 - 0x00007ffed519b000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffed5150000 - 0x00007ffed5186000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffedc440000 - 0x00007ffedc454000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffedb540000 - 0x00007ffedb55b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffec1190000 - 0x00007ffec119a000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\jimage.dll
+0x00007ffeda050000 - 0x00007ffeda292000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffedf0c0000 - 0x00007ffedf443000 	C:\WINDOWS\System32\combase.dll
+0x00007ffede980000 - 0x00007ffedea59000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffec2e90000 - 0x00007ffec2ecb000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffedd060000 - 0x00007ffedd108000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffebb710000 - 0x00007ffebb735000 	C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.8521_none_3e08b75ce33403b3;C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin\server
+
+VM Arguments:
+java_command: C:\Users\Henta\AppData\Local\Temp\surefire6737912890104002927\surefirebooter-20260701063716383_3.jar C:\Users\Henta\AppData\Local\Temp\surefire6737912890104002927 2026-07-01T06-37-15_807-jvmRun1 surefire-20260701063716383_1tmp surefire_0-20260701063716383_2tmp
+java_class_path (initial): C:\Users\Henta\AppData\Local\Temp\surefire6737912890104002927\surefirebooter-20260701063716383_3.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 12                                        {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 13                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 2097152                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 260046848                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 4135583744                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 2097152                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 7602480                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122027880                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122027880                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 4135583744                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot
+PATH=c:\Users\Henta\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\Henta\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Mullvad VPN\resources;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Mullvad VPN\resources;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Mullvad VPN\resources;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\dotnet\;C:\Users\Henta\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.19.10-hotspot\bin;C:\Users\Henta\.local\bin;C:\Users\Henta\AppData\Local\Microsoft\WindowsApps;C:\Users\Henta\AppData\Roaming\npm;C:\Users\Henta\.lmstudio\bin;C:\Users\Henta\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Henta\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.1-full_build\bin;;C:\Program Files\Apache\maven\bin;C:\Users\Henta\Downloads\apache-maven-3.9.16-bin\apache-maven-3.9.16\bin;c:\Users\Henta\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts
+USERNAME=Henta
+LANG=en_US.UTF-8
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
+TMP=C:\Users\Henta\AppData\Local\Temp
+TEMP=C:\Users\Henta\AppData\Local\Temp
+
+
+
+Periodic native trim disabled
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.8521)
+OS uptime: 0 days 2:38 hours
+Hyper-V role detected
+
+CPU: total 16 (initial active 16) (16 cores per cpu, 2 threads per core) family 25 model 80 stepping 0 microcode 0xa50000d, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4a, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, hv
+Processor Information for processor 0
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 1
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 2
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 3
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 4
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 5
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 6
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 7
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 8
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 9
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 10
+  Max Mhz: 2000, Current Mhz: 1890, Mhz Limit: 2000
+Processor Information for processor 11
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 12
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 13
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 14
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+Processor Information for processor 15
+  Max Mhz: 2000, Current Mhz: 1808, Mhz Limit: 2000
+
+Memory: 4k page, system-wide physical 15771M (5320M free)
+TotalPageFile size 15771M (AvailPageFile size 192M)
+current process WorkingSet (physical memory assigned to process): 13M, peak: 13M
+current process commit charge ("private bytes"): 71M, peak: 318M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.19+10) for windows-amd64 JRE (17.0.19+10), built on Apr 25 2026 08:04:44 by "admin" with MS VC++ 17.12 (VS2022)
+
+END.
